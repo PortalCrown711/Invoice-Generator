@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Invoice Generator</title>
+    <script src="https://rawgit.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container-fluid bg-primary text-white py-5 min-vh-100">
+        <div class="container">
+            <div class="tab-switch mb-4">
+                <button class="btn btn-success" onclick="switchTab('edit-tab')">Edit Invoice</button>
+                <button class="btn btn-info" onclick="switchTab('preview-tab')">Preview</button>
+                <button class="btn btn-warning" onclick="generatePDF()">Download PDF</button>
+            </div>
+
+            <div id="invoice">
+                <h2 class="text-center">Invoice</h2>
+                <div id="invoice-details" class="row">
+                    <div id="client-details" class="col-md-6">
+                        <h3>Client Information</h3>
+                        <input type="file" class="form-control mb-3" id="client-image" accept="image/*" onchange="previewImage(this)">
+                        <img id="client-preview" alt="Client Preview" class="hidden img-fluid">
+
+                        <label for="client-name">Client Name</label>
+                        <input type="text" class="form-control" id="client-name" value="John Doe">
+
+                        <label for="client-address">Client Address</label>
+                        <input type="text" class="form-control" id="client-address" value="123 Main St, Cityville">
+                    </div>
+                    <div id="invoice-info" class="col-md-6">
+                        <h3>Invoice Information</h3>
+                        <label for="invoice-number">Invoice Number</label>
+                        <input type="text" class="form-control" id="invoice-number" value="12345">
+
+                        <label for="invoice-date">Invoice Date</label>
+                        <input type="text" class="form-control" id="invoice-date" value="2023-11-22">
+                    </div>
+                </div>
+
+                <table class="table table-striped mt-4">
+                    <thead>
+                        <tr>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="invoice-items">
+                        <!-- Invoice items will be added dynamically here -->
+                    </tbody>
+                </table>
+                <div id="invoice-total" class="text-right">
+                    <label for="total-amount">Total Amount</label>
+                    <input type="text" class="form-control d-inline-block w-auto" id="total-amount" value="0.00" readonly>
+                </div>
+                <button class="btn btn-primary mt-3" onclick="addRow()">Add More Item</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
